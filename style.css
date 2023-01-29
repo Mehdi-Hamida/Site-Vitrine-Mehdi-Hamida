@@ -1,0 +1,321 @@
+/* General */
+@font-face
+{
+    font-family: "Mathilga";
+    src: url("./fonts/Mathilga.otf") format("opentype");
+}
+
+:root
+{
+    --background-color: #141414;
+    --text-color: #fff;
+    --title-font: "Mathilga";
+}
+
+body
+{
+    margin: 0;
+    background: var(--background-color);
+}
+
+section:not(#landing-section)
+{
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 0;
+    overflow: hidden; /* Avoid visibility when an item is in another section while animated */
+}
+
+h1,
+h2,
+h3
+{
+    font-family: var(--title-font);
+    font-weight: 500;
+    text-align: center;
+    margin: 0;
+}
+
+h2
+{
+    font-size: 3.625rem;
+    line-height: 4.5vw;
+    background: url(./img/holo1.jpg) fixed;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+h3
+{
+    font-size: 2.5rem;
+    line-height: 3.5rem;
+    background: url(./img/holo2.jpg)  fixed;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+p
+{
+    font-size: 1.5rem;
+    line-height: 2rem;
+    color: var(--text-color);
+    margin: 0;
+}
+
+a
+{
+    position: relative;
+    color: var(--text-color);
+}
+
+a::after
+{
+    position: absolute;
+    content: "→";
+    font-weight: 700;
+    top: calc(50% - 10px); /* 50% - The middle of the height of the arrow */
+    right: -26px;
+    height: 20px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all ease 0.4s;
+}
+
+a:hover::after
+{
+    right: -32px;
+}
+
+/* Keyframes */
+@keyframes FadeIn
+{
+    0%
+    {
+        opacity: 0;
+    }
+    100%
+    {
+        opacity: 1;
+    }
+}
+
+
+@keyframes from-top-appearing
+{
+    0%
+    {
+        transform: translateY(-300%);
+    }
+
+    100%
+    {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes from-bottom-appearing
+{
+    0%
+    {
+        transform: translateY(100%);
+    }
+
+    100%
+    {
+        transform: translateY(0%);
+    }
+}
+
+/* Landing section */
+#landing-section
+{
+    height: 92vh;
+    position: relative;
+}
+
+#landing-section h1
+{
+    position: relative;
+    top: 40vh;
+    font-size: 6rem;
+    line-height: 7.5rem;
+    background: url(./img/holo1.jpg) fixed;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: from-top-appearing 2000ms ease;
+}
+
+#landing-section #top-left-blob,
+#landing-section #bottom-right-blob
+{
+    position: absolute;
+    background: url(./img/holo2.jpg) no-repeat fixed;
+    -webkit-mask-image: url(./img/top-left-blob.svg);
+    animation: FadeIn 2000ms ease-in;
+}
+
+#landing-section #top-left-blob
+{
+    height: 400px;
+    width: 400px;
+    top: 10px;
+    left: 20px;
+    background-size: 40%;
+}
+
+#landing-section #bottom-right-blob
+{
+    height: 300px;
+    width: 300px;
+    bottom: 8vh;
+    right: 20px;
+    background-position: 300% 0;
+}
+
+/* Sticky title */
+#sticky-title-bg
+{
+    background: linear-gradient(270deg, rgba(20,20,20,1) 0%, rgba(255,255,255,0) 100%);
+    background: -webkit-linear-gradient(270deg, rgba(20,20,20,1) 0%, rgba(255,255,255,0) 100%);
+    position: sticky;
+    top: 0;
+    padding-top: 10px;
+    height: 12vh;
+    z-index: 1;
+}
+
+h2#sticky-title
+{
+    animation: sticky-title-from-bottom-appearing 2800ms ease-in;
+    z-index: 2;
+}
+
+@keyframes sticky-title-from-bottom-appearing
+{
+    0%
+    {
+        opacity: 0;
+        transform: translateY(150%);
+    }
+
+    80%
+    {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+
+    100%
+    {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+/* Presentation section */
+#presentation-section
+{
+    position: sticky !important;
+    top: 0;
+}
+
+#presentation-section .flex-two-cols
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 5%;
+    row-gap: 30px;
+}
+
+#presentation-section .card-bg
+{
+    position: relative;
+    background: url(./img/holo3.jpg) no-repeat fixed;
+    background-size: 100%;
+    height: 300px;
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#presentation-section .card-bg.left
+{
+    animation: from-top-appearing 3000ms ease;
+}
+
+#presentation-section .card-bg.right
+{
+    animation: from-bottom-appearing 3000ms ease;
+}
+
+#presentation-section .card-bg .overlay
+{
+    position: absolute;
+    min-height: calc(100% - 80px); /* 30px padding for each side and 10px border for each side */
+    width: calc(100% - 80px);
+    padding: 30px;
+    background: var(--background-color);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#presentation-section .card-bg .overlay h3
+{
+    position: relative;
+    margin-bottom: 30px;
+}
+
+#presentation-section .card-bg .overlay h3::after
+{
+    position: absolute;
+    content: "";
+    height: 1px;
+    width: 30%;
+    left: calc(50% - 15%);
+    bottom: -10px;
+    background: url(./img/holo2.jpg) repeat fixed;
+}
+
+p.important-text
+{
+    font-family: var(--title-font);
+    font-size: 2rem;
+    line-height: 2.5rem;
+    color: #fff;
+    min-width: 100%;
+    text-align: center;
+}
+
+p.important-text span
+{
+    letter-spacing: 0.5px;
+    filter: blur(1.3px);
+}
+
+/* More infos section */
+#more-infos-section
+{
+    background: #fff;
+}
+
+
+/* Contact section */
+#contact-section
+{
+    background: var(--background-color);
+}
