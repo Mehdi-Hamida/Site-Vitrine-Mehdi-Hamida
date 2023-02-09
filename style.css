@@ -1,4 +1,4 @@
-/* General */
+/* ---------- General ---------- */
 @font-face
 {
     font-family: "Mathilga";
@@ -9,36 +9,38 @@
 {
     --background-color: #141414;
     --text-color: #fff;
-    --title-font: "Mathilga";
+    --display-title-font: "Mathilga";
+    --subtitle-font: 'Playfair Display', serif;
+}
+
+html
+{
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
 }
 
 body
 {
     margin: 0;
+    font-family: var(--subtitle-font);
     background: var(--background-color);
 }
 
-section:not(#landing-section)
+section
 {
-    position: relative;
     height: 100vh;
+    scroll-snap-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    z-index: 0;
-}
-
-section:not(#more-infos-section) /* To make the transition gradient visible */
-{
-    overflow: hidden; /* Avoid visibility when an item is in another section while animated */
+    overflow: hidden;
 }
 
 h1,
-h2,
-h3
+h2
 {
-    font-family: var(--title-font);
+    font-family: var(--display-title-font);
     font-weight: 500;
     text-align: center;
     margin: 0;
@@ -47,8 +49,8 @@ h3
 h2
 {
     font-size: 3.625rem;
-    line-height: 4.5vw;
-    background: url(./img/holo1.jpg) fixed;
+    line-height: 4.8rem;
+    background: url(./img/holo-2.jpg) fixed;
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -56,12 +58,24 @@ h2
 
 h3
 {
+    font-family: var(--subtitle-font);
     font-size: 2.5rem;
     line-height: 3.5rem;
-    background: url(./img/holo2.jpg)  fixed;
+    background: url(./img/holo-2.jpg) fixed;
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
+    margin: 0 0 30px;
+}
+
+h4
+{
+    font-family: var(--subtitle-font);
+    font-size: 1.45rem;
+    line-height: 1.85rem;
+    font-weight: 500;
+    color: #fff;
+    margin: 0;
 }
 
 p
@@ -78,12 +92,12 @@ a
     color: var(--text-color);
 }
 
-a::after
+a:not(#projects-section a, a.holo-btn)::after
 {
     position: absolute;
     content: "→";
     font-weight: 700;
-    top: calc(50% - 10px); /* 50% - The middle of the height of the arrow */
+    top: calc(50% - 10px); /* 50% - The middle of the arrow's height */
     right: -26px;
     height: 20px;
     color: #fff;
@@ -98,126 +112,70 @@ a:hover::after
     right: -32px;
 }
 
-/* Keyframes */
-@keyframes fadeIn
+/* ---------- Blob Section ---------- */
+#blob-section
 {
-    0%
-    {
-        opacity: 0;
-    }
-    100%
-    {
-        opacity: 1;
-    }
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    z-index: 0;
 }
 
-@keyframes from-left-appearing
-{
-    0%
-    {
-        transform: translateX(-300%);
-    }
-
-    100%
-    {
-        transform: translateX(0%);
-    }
-}
-
-@keyframes from-right-appearing
-{
-    0%
-    {
-        transform: translateX(300%);
-    }
-
-    100%
-    {
-        transform: translateX(0%);
-    }
-}
-
-@keyframes from-top-appearing
-{
-    0%
-    {
-        transform: translateY(-300%);
-    }
-
-    100%
-    {
-        transform: translateY(0%);
-    }
-}
-
-@keyframes from-bottom-appearing
-{
-    0%
-    {
-        transform: translateY(100%);
-    }
-
-    100%
-    {
-        transform: translateY(0%);
-    }
-}
-
-/* Landing section */
+/* ---------- Landing section ---------- */
 #landing-section
 {
-    height: 92vh;
+    height: 100vh;
     position: relative;
 }
 
 #landing-section h1
 {
     position: relative;
-    top: 40vh;
     font-size: 6rem;
     line-height: 7.5rem;
-    background: url(./img/holo1.jpg) fixed;
+    background: url(./img/holo-2.jpg) fixed;
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
-    animation: from-top-appearing 2000ms ease;
+    animation: from-top-title-appearing 2500ms ease;
 }
 
-#landing-section #top-left-blob,
-#landing-section #bottom-right-blob
+#top-left-blob,
+#bottom-right-blob
 {
     position: absolute;
-    /* background: url(./img/holo2.jpg) no-repeat fixed; */
-    /* -webkit-mask-image: url(./img/top-left-blob.svg); */
-    animation: fadeIn 2000ms ease-in;
+    filter: blur(3px);
 }
 
-#landing-section #top-left-blob
+#top-left-blob
 {
-    /* height: 400px;
-    width: 400px; */
+    height: 400px;
+    width: 400px;
     top: 10px;
     left: 20px;
-    animation: fadeIn 4000ms ease;
-    /* background-size: 40%; */
+    animation: move 100s infinite linear;
 }
 
-#landing-section #top-left-blob clipPath
+@keyframes move
 {
-    border: 5px solid #141414 !important;
-    overflow: hidden !important;
+    0%
+    {
+        transform: translateX(-200px) translateY(-20vh) rotate(0deg);
+    }
+    100%
+    {
+        transform: translateX(100vw) translateY(30vh) rotate(360deg);
+    }
 }
 
-#landing-section #bottom-right-blob
+/* #landing-section #bottom-right-blob */
+#bottom-right-blob
 {
     height: 300px;
     width: 300px;
     bottom: 8vh;
     right: 20px;
-    background: url(./img/holo4.jpg) no-repeat fixed;
-    background-size: 130%;
-    /* background-position: 300% 0; */
-    /* background-size: 100%; */
+    animation: from-right-appearing-blob 3000ms ease-out;
 }
 
 /* Sticky title */
@@ -228,8 +186,9 @@ a:hover::after
     position: sticky;
     top: 0;
     padding-top: 10px;
+    margin-top: -8vh; /* To make it visible from #landing-section and letting 100vh height for the section, also keeping it's 12vh height for gradient  */
     height: 12vh;
-    z-index: 1;
+    z-index: 5;
 }
 
 h2#sticky-title
@@ -259,28 +218,34 @@ h2#sticky-title
     }
 }
 
-/* Presentation section */
+/* ---------- Presentation section ---------- */
 #presentation-section
 {
-    position: sticky !important;
     top: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all ease 0.6s; /* For JS animation */
 }
 
 #presentation-section .flex-two-cols
 {
+    margin-top: 150px;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     column-gap: 5%;
-    row-gap: 20vh;
+    row-gap: 30px;
+    overflow: hidden;
 }
 
 #presentation-section .card-bg
 {
     position: relative;
-    background: url(./img/holo3.jpg) no-repeat fixed;
+    background: url(./img/holo-1.jpg) no-repeat fixed;
     background-size: 100%;
     height: 300px;
     width: 45%;
@@ -291,12 +256,12 @@ h2#sticky-title
 
 #presentation-section .card-bg.left
 {
-    animation: from-top-appearing 3000ms ease;
+    animation: from-left-appearing 3000ms ease;
 }
 
 #presentation-section .card-bg.right
 {
-    animation: from-bottom-appearing 3000ms ease;
+    animation: from-right-appearing 3000ms ease;
 }
 
 #presentation-section .card-bg .overlay
@@ -316,7 +281,6 @@ h2#sticky-title
 #presentation-section .card-bg .overlay h3
 {
     position: relative;
-    margin-bottom: 30px;
 }
 
 #presentation-section .card-bg .overlay h3::after
@@ -327,12 +291,13 @@ h2#sticky-title
     width: 30%;
     left: calc(50% - 15%);
     bottom: -10px;
-    background: url(./img/holo2.jpg) repeat fixed;
+    background: url(./img/holo-2.jpg) repeat fixed;
 }
 
 p.important-text
 {
-    font-family: var(--title-font);
+    margin-top: 100px;
+    font-family: var(--display-title-font);
     font-size: 2rem;
     line-height: 2.5rem;
     color: #fff;
@@ -346,28 +311,567 @@ p.important-text span
     filter: blur(1.3px);
 }
 
-/* More infos section */
-#more-infos-section
+/* ---------- White Transition gradient ---------- */
+#white-transition-gradient
 {
-    margin-top: 200vh;
-    background: #fff;
+    position: relative;
+    background: linear-gradient(90deg,rgba(255,255,255,1) 0%,
+    rgba(255,255,255,0) 100%);
+    background: -webkit-linear-gradient(90deg,rgba(255,255,255,1) 0%,
+    rgba(255,255,255,0) 100%);
+    height: 100vh;
+    width: 100%;
+    z-index: -1;
 }
 
-body #more-infos-section::before
+/* ---------- More infos section ---------- */
+body #more-infos-section
 {
-    content: "";
-    position: absolute;
-    background:-webkit-linear-gradient(90deg,rgba(255,255,255,1) 0%,
-    rgba(255,255,255,0) 100%);
-    top: -200vh;
-    left: 0;
-    height: 200vh;
+    position: static;
+    background: url(./img/holo-3.png) no-repeat #fff;
+    background-size: cover;
+    background-position: center;
+    z-index: 4;
+}
+
+#more-infos-section .glass-card
+{
+    width: 80%;
+    height: 70%;
+    padding: 30px;
+    background: rgb(255 255 255 / 20%);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 30px 5px rgb(0 0 0 / 10%);
+    border: 1px solid #fff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 10px;
+    z-index: 4;
+}
+
+#more-infos-section p
+{
+    color: var(--background-color);
+}
+
+/* ---------- Projects Section ---------- */
+#projects-section
+{
+    position: static;
+    background: url(./img/holo-3-reverse.png) no-repeat #fff;
+    background-size: cover;
+    background-position: center;
+}
+
+#projects-section .tactile-display
+{
+    display: none;
+}
+
+#projects-section .flex-container
+{
+    padding-top: 100px;
+    width: 80%;
+}
+
+#projects-section .flex-slider
+{
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    column-gap: 15vw;
+    overflow-y: auto;
+    scroll-snap-type: mandatory;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+#projects-section .flex-slider > .mockup-container
+{
+    scroll-snap-align: center;
+    flex-shrink: 0;
+}
+
+#projects-section .desktop-mockup-container
+{
+    height: 500px;
+    width: 786px;
+    perspective: 1000px;
+}
+
+#projects-section .mobile-mockup-container
+{
+    height: 500px;
+    width: 235px;
+    perspective: 1000px;
+}
+
+#projects-section .mockup-container > a,
+#projects-section .mockup,
+#projects-section .front,
+#projects-section .back
+{
+    height: 100%;
     width: 100%;
 }
 
-
-/* Contact section */
-#contact-section
+#projects-section .mockup
 {
+    position: relative;
+    transition: transform 1500ms;
+    transform-style: preserve-3d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#projects-section .mockup-container:hover > a .mockup
+{
+    cursor: pointer;
+    transform: rotateY(180deg);
+}
+
+#projects-section .front,
+#projects-section .back
+{
+    position: absolute;
+    backface-visibility: hidden;
+}
+
+#projects-section .front
+{
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: rotateY(180deg);
+}
+
+#projects-section .desktop-front
+{
+    background-size: 125%;
+}
+
+#projects-section .mobile-front
+{
+    background-size: contain;
+}
+
+#projects-section .back
+{
+    height: 92%;
+    width: 95%;
+    background-clip: padding-box;
+    border: 10px solid transparent;
+    border-radius: 30px;
+    background: url(./img/holo-1.jpg) no-repeat center fixed;
+    background-size: 200%;
+}
+
+
+#projects-section .content-container
+{
+    position: absolute;
+    height: 100%;
+    width: calc(100% - 30px); /* 100% - (padding * 2) */
+    color: #fff;
     background: var(--background-color);
+    border-radius: 22px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    text-align: center;
+    padding: 0 15px;
+}
+
+#projects-section .content-container h4
+{
+    position: relative;
+}
+
+#projects-section .content-container h4::before
+{
+    position: absolute;
+    content: "";
+    top: -15px;
+    left: -5px;
+    height: 90%;
+    width: 30%;
+    border-top: 2px solid rgb(25, 163, 255);
+    border-left: 2px solid rgb(25, 163, 255);
+}
+
+#projects-section .content-container h4::after
+{
+    position: absolute;
+    content: "";
+    bottom: -15px;
+    right: -5px;
+    height: 90%;
+    width: 30%;
+    border-bottom: 2px solid rgb(25, 163, 255);
+    border-right: 2px solid rgb(25, 163, 255);
+}
+
+#projects-section .content-container p
+{
+    font-size: 1.2rem;
+    line-height: 1.7rem;
+    font-weight: 400;
+    color: rgb(230, 230, 230);
+}
+
+/* Background image for each card */
+#projects-section .desktop-front.js-calculator
+{
+    background-image: url(./img/mockups/js-calculator.png);
+}
+
+#projects-section .desktop-front.starbucks-landing-page
+{
+    background-image: url(./img/mockups/starbucks-landing-page.png);
+}
+
+#projects-section .mobile-front.nft-card
+{
+    background-image: url(./img/mockups/nft-card.png);
+}
+
+#projects-section .mobile-front.order-summary
+{
+    background-image: url(./img/mockups/order-summary.png);
+}
+
+#projects-section .mobile-front.product-card
+{
+    background-image: url(./img/mockups/product-card.png);
+}
+
+#projects-section .mobile-front.qr-code
+{
+    background-image: url(./img/mockups/qr-code.png);
+}
+
+/* ---------- White Transition gradient ---------- */
+#black-transition-gradient
+{
+    position: relative;
+    background: linear-gradient(270deg,rgba(255,255,255,1) 0%,
+    rgba(255,255,255,0) 100%);
+    background: -webkit-linear-gradient(270deg,rgba(255,255,255,1) 0%,
+    rgba(255,255,255,0) 100%);
+    height: 100vh;
+    width: 100%;
+    z-index: -1;
+}
+
+/* ---------- Contact section ---------- */
+body #contact-section
+{
+    position: static;
+    background: var(--background-color);
+}
+
+body #contact-section .flex-container
+{
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+body #contact-section .holo-btn
+{
+    height: 100px;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 15px;
+    text-decoration: none;
+    transition: all ease-in 0.4s;
+}
+
+body #contact-section .flex-container:hover > .holo-btn /* Hovering the parent lowers the items opacity */
+{
+    opacity: 0.25;
+}
+
+body #contact-section .flex-container:hover > .holo-btn:hover /* Doesn't changes opacity of hovered item */
+{
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+body #contact-section .holo-btn i
+{
+    background: url(./img/holo-4.jpg) no-repeat center;
+    background-size: 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    font-size: 6rem;
+    line-height: 6rem;
+}
+
+
+/* ---------- RESPONSIVE ---------- */
+/* Tablets */
+@media (max-width: 1050px)
+{
+    /* Presentation Section */
+    #presentation-section .flex-two-cols
+    {
+        flex-direction: column;
+    }
+
+    #presentation-section .card-bg
+    {
+        width: 90%;
+    }
+
+    /* Projects Section */
+    #projects-section .computer-display
+    {
+        display: none;
+    }
+
+    .tactile-display
+    {
+        display: inline-block;
+    }
+}
+
+/* Phones */
+@media (max-width: 600px)
+{
+    /* Global */
+    body p
+    {
+        font-size: 0.9rem;
+        line-height: 1.4rem;
+    }
+
+    h2
+    {
+        font-size: 2.5rem;
+        line-height: 4rem;
+    }
+
+    h3
+    {
+        font-size: 2rem;
+        line-height: 3rem;
+    }
+
+    /* Blob Section */
+    #top-left-blob
+    {
+        height: 250px;
+        width: 250px;
+    }
+
+    #bottom-right-blob
+    {
+        height: 200px;
+        width: 200px;
+    }
+
+    @keyframes move
+    {
+        0%
+        {
+            transform: translateX(0px) translateY(-20vh) rotate(0deg);
+        }
+
+        100%
+        {
+            transform: translateX(100vw) translateY(30vh) rotate(360deg);
+        }
+    }
+
+    /* Landing Section */
+    #landing-section h1
+    {
+        font-size: 3rem;
+        line-height: 3.5rem;
+    }
+
+    /* Presentation Section */
+    #presentation-section .flex-two-cols,
+    p.important-text
+    {
+        margin: 0;
+    }
+
+    #presentation-section .card-bg
+    {
+        height: 245px;
+    }
+
+    #presentation-section .card-bg .overlay
+    {
+        min-height: calc(100% - 45px);
+        width: calc(100% - 45px);
+        padding: 15px;
+    }
+
+    #presentation-section p.important-text
+    {
+        position: absolute;
+        bottom: -102vh;
+        font-size: 1.05rem;
+        line-height: 1.5rem;
+    }
+
+    /* More Infos Scetion */
+    #more-infos-section .glass-card
+    {
+        width: 85%;
+        height: unset;
+        padding: 15px;
+    }
+
+    #more-infos-section .glass-card h3
+    {
+        margin-bottom: 5px;
+    }
+
+    #more-infos-section p.important-text
+    {
+        margin-top: 10px;
+        font-size: 1.05rem;
+        line-height: 1.5rem;
+    }
+
+    /* Contact Section */
+    body #contact-section .flex-container
+    {
+        z-index: 0;
+        row-gap: 50px;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 30px 0;
+        border-radius: 15px;
+    }
+
+    body #contact-section .holo-btn
+    {
+        height: auto;
+        width: 50%;
+    }
+}
+
+
+/* ---------- Keyframes ---------- */
+@keyframes fadeIn
+{
+    0%
+    {
+        opacity: 0;
+    }
+    100%
+    {
+        opacity: 1;
+    }
+}
+
+@keyframes from-left-appearing-blob
+{
+    0%
+    {
+        left: calc(-10% - 400px); /* 10% - The size of the blob to be sure it starts out of the screen */
+    }
+
+    100%
+    {
+        left: 20px;
+    }
+}
+
+@keyframes from-right-appearing-blob
+{
+    0%
+    {
+        right: calc(-10% - 300px);
+    }
+
+    100%
+    {
+        right: 20px;
+    }
+}
+
+@keyframes from-top-title-appearing
+{
+    0%
+    {
+        transform: translateY(-300%);
+    }
+
+    100%
+    {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes from-top-appearing
+{
+    0%
+    {
+        transform: translateY(-100%);
+    }
+
+    100%
+    {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes from-bottom-appearing
+{
+    0%
+    {
+        transform: translateY(100%);
+    }
+
+    100%
+    {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes from-left-appearing
+{
+    0%
+    {
+        left: -100%;
+    }
+
+    100%
+    {
+        left: 0;
+    }
+}
+
+@keyframes from-right-appearing
+{
+    0%
+    {
+        right: -100%
+    }
+
+    100%
+    {
+        right: 0;
+    }
 }
