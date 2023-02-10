@@ -74,7 +74,11 @@ h4
     font-size: 1.45rem;
     line-height: 1.85rem;
     font-weight: 500;
-    color: #fff;
+    background: url(./img/holo-2.jpg) fixed bottom;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    /* color: #fff; */
     margin: 0;
 }
 
@@ -371,19 +375,30 @@ body #more-infos-section
     display: none;
 }
 
+/* //////////////////// SUPPRIMER //////////////////// */
+#blob-section
+{
+    display: none;
+}
+/* //////////////////// SUPPRIMER //////////////////// */
+
 #projects-section .flex-container
 {
-    padding-top: 100px;
-    width: 80%;
+    /* padding-top: 100px; */
+    height: calc(85vh - 30px);
+    width: 100%;
 }
 
 #projects-section .flex-slider
 {
+    min-height: 100%;
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
     column-gap: 15vw;
-    overflow-y: auto;
+    overflow-x: scroll;
+    /* overflow-y: visible;
+    overflow-x: auto; */
     scroll-snap-type: mandatory;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
@@ -396,166 +411,107 @@ body #more-infos-section
     flex-shrink: 0;
 }
 
-#projects-section .desktop-mockup-container
+#projects-section .mockup-container
 {
-    height: 500px;
-    width: 786px;
-    perspective: 1000px;
-}
-
-#projects-section .mobile-mockup-container
-{
-    height: 500px;
-    width: 235px;
-    perspective: 1000px;
-}
-
-#projects-section .mockup-container > a,
-#projects-section .mockup,
-#projects-section .front,
-#projects-section .back
-{
-    height: 100%;
+    /* max-width: 100%; */
     width: 100%;
+    perspective: 1000px;
+    transform-style: preserve-3d;
 }
 
-#projects-section .mockup
+.card
 {
-    position: relative;
-    transition: transform 1500ms;
+    transition: transform 1.3s;
     transform-style: preserve-3d;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#projects-section .mockup-container:hover > a .mockup
+#projects-section .mockup-container:hover > .card
 {
-    cursor: pointer;
     transform: rotateY(180deg);
 }
 
-#projects-section .front,
-#projects-section .back
+.front-face
 {
-    position: absolute;
+    position: relative;
+    width: fit-content;
     backface-visibility: hidden;
+    transform: rotateY(180deg);
 }
 
-#projects-section .front
+.front-face img
 {
+    max-height: 569px;
+    max-width: 100%;
+}
+
+.card-bg
+{   
     height: 100%;
     width: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    transform: rotateY(180deg);
+    position: absolute;
+    top: 0;
+    left: 0;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 5px;
 }
 
-#projects-section .desktop-front
+.card-bg.desktop
 {
-    background-size: 125%;
-}
-
-#projects-section .mobile-front
-{
+    background: url(./img/mockups/desktop-mockup-bg.png) no-repeat center;
     background-size: contain;
 }
 
-#projects-section .back
+.card-bg.mobile
 {
-    height: 92%;
-    width: 95%;
-    background-clip: padding-box;
-    border: 10px solid transparent;
-    border-radius: 30px;
-    background: url(./img/holo-1.jpg) no-repeat center fixed;
-    background-size: 200%;
+    width: 268px; /* Prevent text overflowing from mobile shape */
+    left: calc(50% - 134px);
+    background: url(./img/mockups/mobile-mockup-bg.png) no-repeat center;
+    background-size: contain;
 }
 
-
-#projects-section .content-container
+.card-bg h4
 {
-    position: absolute;
-    height: 100%;
-    width: calc(100% - 30px); /* 100% - (padding * 2) */
-    color: #fff;
-    background: var(--background-color);
-    border-radius: 22px;
+    font-size: calc(1rem + 2.5vw);
+    line-height: calc(2rem + 2.5vw);
+}
+
+.card-bg p
+{
+    font-size: calc(0.5rem + 1.5vw);
+    line-height: calc(0.5rem + 2vw);
+}
+
+#projects-section .pagination-container
+{
     display: flex;
     justify-content: center;
-    flex-direction: column;
     align-items: center;
-    gap: 30px;
-    text-align: center;
-    padding: 0 15px;
+    column-gap: 3%;
 }
 
-#projects-section .content-container h4
+#projects-section .pagination-container a.carousel-pagination
 {
-    position: relative;
-}
-
-#projects-section .content-container h4::before
-{
-    position: absolute;
-    content: "";
-    top: -15px;
-    left: -5px;
-    height: 90%;
-    width: 30%;
-    border-top: 2px solid rgb(25, 163, 255);
-    border-left: 2px solid rgb(25, 163, 255);
-}
-
-#projects-section .content-container h4::after
-{
-    position: absolute;
-    content: "";
-    bottom: -15px;
-    right: -5px;
-    height: 90%;
-    width: 30%;
-    border-bottom: 2px solid rgb(25, 163, 255);
-    border-right: 2px solid rgb(25, 163, 255);
-}
-
-#projects-section .content-container p
-{
-    font-size: 1.2rem;
-    line-height: 1.7rem;
-    font-weight: 400;
-    color: rgb(230, 230, 230);
-}
-
-/* Background image for each card */
-#projects-section .desktop-front.js-calculator
-{
-    background-image: url(./img/mockups/js-calculator.png);
-}
-
-#projects-section .desktop-front.starbucks-landing-page
-{
-    background-image: url(./img/mockups/starbucks-landing-page.png);
-}
-
-#projects-section .mobile-front.nft-card
-{
-    background-image: url(./img/mockups/nft-card.png);
-}
-
-#projects-section .mobile-front.order-summary
-{
-    background-image: url(./img/mockups/order-summary.png);
-}
-
-#projects-section .mobile-front.product-card
-{
-    background-image: url(./img/mockups/product-card.png);
-}
-
-#projects-section .mobile-front.qr-code
-{
-    background-image: url(./img/mockups/qr-code.png);
+    height: 30px;
+    width: 30px;
+    /* font-family: var(--display-title-font); */
+    font-family: sans-serif;
+    font-size: 1rem;
+    line-height: 1rem;
+    font-weight: 600;
+    color: var(--background-color);
+    text-decoration: none;
+    border: 2px solid var(--background-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* ---------- White Transition gradient ---------- */
