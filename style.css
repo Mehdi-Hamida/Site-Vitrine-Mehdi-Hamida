@@ -375,13 +375,6 @@ body #more-infos-section
     display: none;
 }
 
-/* //////////////////// SUPPRIMER //////////////////// */
-#blob-section
-{
-    display: none;
-}
-/* //////////////////// SUPPRIMER //////////////////// */
-
 #projects-section .flex-container
 {
     /* padding-top: 100px; */
