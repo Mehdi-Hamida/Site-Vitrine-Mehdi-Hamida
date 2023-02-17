@@ -11,6 +11,7 @@
     --text-color: #fff;
     --display-title-font: "Mathilga";
     --subtitle-font: 'Playfair Display', serif;
+    --font: sans-serif;
 }
 
 html
@@ -22,7 +23,7 @@ html
 body
 {
     margin: 0;
-    font-family: var(--subtitle-font);
+    font-family: var(--font);
     background: var(--background-color);
 }
 
@@ -123,6 +124,7 @@ a:hover::after
     width: 100vw;
     position: fixed;
     z-index: 0;
+    pointer-events: none; /* Make this section less disturbing for the carousel's scrollbar */
 }
 
 /* ---------- Landing section ---------- */
@@ -271,8 +273,8 @@ h2#sticky-title
 #presentation-section .card-bg .overlay
 {
     position: absolute;
-    min-height: calc(100% - 80px); /* 30px padding for each side and 10px border for each side */
-    width: calc(100% - 80px);
+    min-height: calc(100% - 70px); /* 30px padding for each side and 5px border for each side */
+    width: calc(100% - 70px);
     padding: 30px;
     background: var(--background-color);
     text-align: center;
@@ -390,8 +392,7 @@ body #more-infos-section
     flex-wrap: nowrap;
     column-gap: 15vw;
     overflow-x: scroll;
-    /* overflow-y: visible;
-    overflow-x: auto; */
+    overflow-y: hidden;
     scroll-snap-type: mandatory;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
@@ -400,6 +401,7 @@ body #more-infos-section
 
 #projects-section .flex-slider > .mockup-container
 {
+    overflow: visible; /* Devrait faire marcher le scroll-snap sur iPhones, supprimer si c'est pas le cas */
     scroll-snap-align: center;
     flex-shrink: 0;
 }
@@ -408,7 +410,7 @@ body #more-infos-section
 {
     /* max-width: 100%; */
     width: 100%;
-    perspective: 1000px;
+    perspective: 1500px;
     transform-style: preserve-3d;
 }
 
@@ -475,12 +477,6 @@ body #more-infos-section
     line-height: calc(2rem + 2.5vw);
 }
 
-.card-bg p
-{
-    font-size: calc(0.5rem + 1.5vw);
-    line-height: calc(0.5rem + 2vw);
-}
-
 #projects-section .pagination-container
 {
     display: flex;
@@ -493,8 +489,6 @@ body #more-infos-section
 {
     height: 30px;
     width: 30px;
-    /* font-family: var(--display-title-font); */
-    font-family: sans-serif;
     font-size: 1rem;
     line-height: 1rem;
     font-weight: 600;
@@ -720,6 +714,23 @@ body #contact-section .holo-btn i
     }
 }
 
+/* Removing fixed background on iOS devices */
+@supports (-webkit-touch-callout: none)
+{
+    h1,
+    h2,
+    h3
+    {
+        background: url(./img/holo-2.jpg);
+        background-size: 300%;
+    }
+
+    #presentation-section .card-bg
+    {
+        background: url(./img/holo-1.jpg) no-repeat;
+        background-size: cover;
+    }
+}
 
 /* ---------- Keyframes ---------- */
 @keyframes fadeIn
