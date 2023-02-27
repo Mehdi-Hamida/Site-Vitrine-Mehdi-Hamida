@@ -52,7 +52,6 @@ h2
     font-size: 3.625rem;
     line-height: 4.8rem;
     background: url(./img/holo-2.jpg);
-    background-attachment: scroll;
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -64,7 +63,6 @@ h3
     font-size: 2.5rem;
     line-height: 3.5rem;
     background: url(./img/holo-2.jpg);
-    background-attachment: scroll;
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -78,7 +76,6 @@ h4
     line-height: 1.85rem;
     font-weight: 500;
     background: url(./img/holo-2.jpg) bottom;
-    background-attachment: scroll;
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -143,7 +140,6 @@ a:hover::after
     font-size: 6rem;
     line-height: 7.5rem;
     background: url(./img/holo-2.jpg);
-    background-attachment: scroll;
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -231,6 +227,7 @@ h2#sticky-title
 /* ---------- Presentation section ---------- */
 #presentation-section
 {
+    position: relative;
     top: 0;
     height: 100vh;
     display: flex;
@@ -244,19 +241,16 @@ h2#sticky-title
     margin-top: 150px;
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
-    column-gap: 5%;
-    row-gap: 30px;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 #presentation-section .card-bg
 {
     position: relative;
     background: url(./img/holo-1.jpg) no-repeat;
-    background-attachment: scroll;
     background-size: 100%;
     height: 300px;
     width: 45%;
@@ -268,6 +262,7 @@ h2#sticky-title
 #presentation-section .card-bg.left
 {
     animation: from-left-appearing 3000ms ease;
+    /*margin-bottom: 15px; /* row-gap on parent doesn't works on iPhones */
 }
 
 #presentation-section .card-bg.right
@@ -303,7 +298,6 @@ h2#sticky-title
     left: calc(50% - 15%);
     bottom: -10px;
     background: url(./img/holo-2.jpg) repeat;
-    background-attachment: scroll;
 }
 
 p.important-text
@@ -315,6 +309,7 @@ p.important-text
     color: #fff;
     min-width: 100%;
     text-align: center;
+    z-index: 1;
 }
 
 p.important-text span
@@ -399,15 +394,15 @@ body #more-infos-section
     column-gap: 15vw;
     overflow-x: scroll;
     overflow-y: hidden;
-    scroll-snap-type: mandatory;
+    /* scroll-snap-type: mandatory; */
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
+    -webkit-overflow-scrolling: touch; /* Make scroll-snap work on iOS */
 }
 
 #projects-section .flex-slider > .mockup-container
 {
-    overflow: visible; /* Devrait faire marcher le scroll-snap sur iPhones, supprimer si c'est pas le cas */
+    /* overflow: visible; /* Devrait faire marcher le scroll-snap sur iPhones, supprimer si c'est pas le cas */
     scroll-snap-align: center;
     flex-shrink: 0;
 }
@@ -417,10 +412,10 @@ body #more-infos-section
     /* max-width: 100%; */
     width: 100%;
     perspective: 1500px;
-    transform-style: preserve-3d;
+    /* transform-style: preserve-3d; */
 }
 
-.card
+#projects-section .card
 {
     transition: transform 1.3s;
     transform-style: preserve-3d;
@@ -434,7 +429,7 @@ body #more-infos-section
     transform: rotateY(180deg);
 }
 
-.front-face
+#projects-section .front-face
 {
     position: relative;
     width: fit-content;
@@ -442,19 +437,19 @@ body #more-infos-section
     transform: rotateY(180deg);
 }
 
-.front-face img
+#projects-section .front-face img
 {
     max-height: 569px;
     max-width: 100%;
 }
 
-.card-bg
+#projects-section .card-bg
 {   
-    height: 100%;
-    width: 100%;
     position: absolute;
     top: 0;
     left: 0;
+    height: 100%;
+    width: 100%;
     backface-visibility: hidden;
     display: flex;
     flex-direction: column;
@@ -463,13 +458,13 @@ body #more-infos-section
     row-gap: 5px;
 }
 
-.card-bg.desktop
+#projects-section .card-bg.desktop
 {
     background: url(./img/mockups/desktop-mockup-bg.png) no-repeat center;
     background-size: contain;
 }
 
-.card-bg.mobile
+#projects-section .card-bg.mobile
 {
     width: 268px; /* Prevent text overflowing from mobile shape */
     left: calc(50% - 134px);
@@ -477,7 +472,7 @@ body #more-infos-section
     background-size: contain;
 }
 
-.card-bg h4
+#projects-section .card-bg h4
 {
     font-size: calc(1rem + 2.5vw);
     line-height: calc(2rem + 2.5vw);
@@ -678,12 +673,12 @@ body #contact-section .holo-btn i
     #presentation-section p.important-text
     {
         position: absolute;
-        bottom: -102vh;
+        bottom: 0;
         font-size: 1.05rem;
         line-height: 1.5rem;
     }
 
-    /* More Infos Scetion */
+    /* More Infos Section */
     #more-infos-section .glass-card
     {
         width: 85%;
@@ -717,6 +712,26 @@ body #contact-section .holo-btn i
     {
         height: auto;
         width: 50%;
+    }
+
+    #contact-section p.important-text
+    {
+        position: relative;
+        margin-bottom: 30px;
+    }
+
+    #contact-section p.important-text::after
+    {
+        opacity: 0;
+        content: ' ';
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-family: var(--subtitle-font);
+        color: #fff;
+        width: 100%;
+        animation: changingText 10s linear infinite alternate;
+        -webkit-animation: changingText 10s linear infinite alternate;
     }
 }
 
@@ -815,11 +830,54 @@ body #contact-section .holo-btn i
 {
     0%
     {
-        right: -100%
+        right: -100%;
+        /* transform: translateX(-100%); */
     }
 
     100%
     {
-        right: 0;
+        /* transform: translateX(0%); */
+        right: 0%;
+    }
+}
+
+@keyframes changingText /* 100% / 6 (steps) = 16.66% */
+{
+    /* 16.66%
+    {
+      opacity: 0;
+    } */
+
+    /* 33.33% */
+    0%
+    {
+      content: 'Contact me';
+      opacity: 1;
+    }
+
+    /* 49.99% */
+    25%
+    {
+      opacity: 0;
+    }
+
+    /* 66.65% */
+    50%
+    {
+      content: 'Contácteme';
+      opacity: 1;
+    }
+
+    /* 83.30% */
+    75%
+    {
+      opacity: 0;
+    }
+
+    /* 99.96% */
+    100%
+    {
+      content: 'Contactez-moi';
+      opacity: 1;
     }
 }
