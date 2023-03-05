@@ -442,6 +442,7 @@ body #more-infos-section #glass-card.glass-card-animations p
     flex-wrap: nowrap;
     overflow-x: scroll;
     overflow-y: hidden;
+    scroll-snap-type: mandatory; /* TEST */
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch; /* Make scroll-snap work on iOS */
@@ -449,8 +450,14 @@ body #more-infos-section #glass-card.glass-card-animations p
 
 #projects-section .flex-slider > .mockup-container
 {
+    overflow: visible; /* TEST */
     scroll-snap-align: center;
     flex-shrink: 0;
+}
+
+*
+{
+    background: red;
 }
 
 #projects-section .mockup-container
@@ -809,31 +816,6 @@ body #contact-section .holo-btn i
 }
 
 /* ---------- Keyframes ---------- */
-@keyframes fadeIn
-{
-    0%
-    {
-        opacity: 0;
-    }
-    100%
-    {
-        opacity: 1;
-    }
-}
-
-@keyframes from-top-appearing
-{
-    0%
-    {
-        transform: translateY(-100%);
-    }
-
-    100%
-    {
-        transform: translateY(0%);
-    }
-}
-
 @keyframes from-bottom-appearing
 {
     0%
