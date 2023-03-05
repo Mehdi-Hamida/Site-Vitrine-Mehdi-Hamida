@@ -442,6 +442,7 @@ body #more-infos-section #glass-card.glass-card-animations p
     flex-wrap: nowrap;
     overflow-x: scroll;
     overflow-y: hidden;
+    column-gap: 15vw; /* TEST */
     scroll-snap-type: mandatory; /* TEST */
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
@@ -453,11 +454,6 @@ body #more-infos-section #glass-card.glass-card-animations p
     overflow: visible; /* TEST */
     scroll-snap-align: center;
     flex-shrink: 0;
-}
-
-*
-{
-    background: red;
 }
 
 #projects-section .mockup-container
