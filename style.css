@@ -442,8 +442,6 @@ body #more-infos-section #glass-card.glass-card-animations p
     flex-wrap: nowrap;
     overflow-x: scroll;
     overflow-y: hidden;
-    /*column-gap: 15vw; /* TEST */
-    /*scroll-snap-type: mandatory; /* TEST */
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch; /* Make scroll-snap work on iOS */
@@ -451,14 +449,9 @@ body #more-infos-section #glass-card.glass-card-animations p
 
 #projects-section .flex-slider > .mockup-container
 {
-    overflow: visible; /* TEST */
+    overflow: visible; /* Important to make the effect work on iOS */
     scroll-snap-align: center;
     flex-shrink: 0;
-}
-
-body
-{
-    background: yellow;
 }
 
 #projects-section .mockup-container
