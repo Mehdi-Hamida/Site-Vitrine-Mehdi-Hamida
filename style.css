@@ -79,7 +79,6 @@ h4
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
-    /* color: #fff; */
     margin: 0;
 }
 
@@ -112,7 +111,7 @@ a:not(#projects-section a, a.holo-btn)::after
     transition: all ease 0.4s;
 }
 
-a:hover::after
+a:not(#projects-section a, a.holo-btn):hover::after
 {
     right: -32px;
 }
@@ -134,16 +133,42 @@ a:hover::after
     position: relative;
 }
 
-#landing-section h1
+#landing-section h1,
+#landing-section h2
 {
-    position: relative;
+    display: block;
+    overflow: hidden; /* To make the span invisible at the beginning of the animation */
+}
+
+#landing-section h1 span,
+#landing-section h2 span
+{
+    display: inline-block;
     font-size: 6rem;
     line-height: 7.5rem;
+    transform: translateY(100%); /* Makes spans invisible at the beginning of the animation */
+    animation: spanFadeIn 1000ms ease forwards;
     background: url(./img/holo-2.jpg);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
-    animation: from-top-title-appearing 2500ms ease;
+}
+
+#landing-section h2 span
+{
+    animation-delay: 500ms;
+}
+
+@keyframes spanFadeIn
+{
+    0%
+    {
+        transform: translateY(100%);
+    }
+    100%
+    {
+        transform: translateY(0%);
+    }
 }
 
 #top-left-blob,
@@ -159,14 +184,14 @@ a:hover::after
     width: 400px;
     top: 10px;
     left: 20px;
-    animation: move 100s infinite linear;
+    animation: left-blob-move 100s infinite linear;
 }
 
-@keyframes move
+@keyframes left-blob-move
 {
     0%
     {
-        transform: translateX(-200px) translateY(-20vh) rotate(0deg);
+        transform: translateX(-100px) translateY(-20vh) rotate(0deg);
     }
     100%
     {
@@ -181,7 +206,19 @@ a:hover::after
     width: 300px;
     bottom: 8vh;
     right: 20px;
-    animation: from-right-appearing-blob 3000ms ease-out;
+    animation: right-blob-move 100s infinite linear;
+}
+
+@keyframes right-blob-move
+{
+    0%
+    {
+        transform: translateX(10vw) translateY(-13vh) rotate(0deg);
+    }
+    100%
+    {
+        transform: translateX(-100vw) translateY(7vh) rotate(360deg);
+    }
 }
 
 /* Sticky title */
@@ -199,7 +236,7 @@ a:hover::after
 
 h2#sticky-title
 {
-    animation: sticky-title-from-bottom-appearing 2800ms ease-in;
+    animation: sticky-title-from-bottom-appearing 1500ms ease-in;
     z-index: 2;
 }
 
@@ -209,12 +246,6 @@ h2#sticky-title
     {
         opacity: 0;
         transform: translateY(150%);
-    }
-
-    80%
-    {
-        opacity: 0;
-        transform: translateY(100%);
     }
 
     100%
@@ -233,18 +264,15 @@ h2#sticky-title
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all ease 0.6s; /* For JS animation */
 }
 
 #presentation-section .flex-two-cols
 {
-    margin-top: 150px;
     width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
-    /* overflow: hidden; */
 }
 
 #presentation-section .card-bg
@@ -257,17 +285,6 @@ h2#sticky-title
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-#presentation-section .card-bg.left
-{
-    animation: from-left-appearing 3000ms ease;
-    /*margin-bottom: 15px; /* row-gap on parent doesn't works on iPhones */
-}
-
-#presentation-section .card-bg.right
-{
-    animation: from-right-appearing 3000ms ease;
 }
 
 #presentation-section .card-bg .overlay
@@ -300,9 +317,10 @@ h2#sticky-title
     background: url(./img/holo-2.jpg) repeat;
 }
 
-p.important-text
+#presentation-section p.important-text
 {
-    margin-top: 100px;
+    position: absolute;
+    bottom: 2vh;
     font-family: var(--display-title-font);
     font-size: 2rem;
     line-height: 2.5rem;
@@ -312,7 +330,7 @@ p.important-text
     z-index: 1;
 }
 
-p.important-text span
+#presentation-section p.important-text span
 {
     letter-spacing: 0.5px;
     filter: blur(1.3px);
@@ -341,25 +359,57 @@ body #more-infos-section
     z-index: 4;
 }
 
-#more-infos-section .glass-card
+#more-infos-section #glass-card
 {
-    width: 80%;
+    opacity: 0;
+    width: 0;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    color: transparent;
     height: 70%;
-    padding: 30px;
-    background: rgb(255 255 255 / 20%);
+    background: rgb(255 255 255 / 50%);
     backdrop-filter: blur(5px);
-    box-shadow: 0 0 30px 5px rgb(0 0 0 / 10%);
-    border: 1px solid #fff;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    row-gap: 10px;
+    text-align: center;
     z-index: 4;
+    transition: all ease 1s;
 }
 
-#more-infos-section p
+body #more-infos-section h3,
+body #more-infos-section p
+{
+    opacity: 0;
+}
+
+body #more-infos-section h3,
+body #more-infos-section p:not(:last-child)
+{
+    margin-bottom: 30px;
+}
+
+body #more-infos-section #glass-card.glass-card-animations
+{
+    opacity: 1;
+    width: 80%;
+    padding: 30px;
+    border: 1px solid #fff;
+    box-shadow: 0 0 30px 5px rgb(0 0 0 / 10%);
+}
+
+body #more-infos-section #glass-card.glass-card-animations h3,
+body #more-infos-section #glass-card.glass-card-animations p
+{
+    transition: all ease 1s;
+    transition-delay: 1s;
+    opacity: 1;
+}
+
+body #more-infos-section #glass-card.glass-card-animations p
 {
     color: var(--background-color);
 }
@@ -380,7 +430,6 @@ body #more-infos-section
 
 #projects-section .flex-container
 {
-    /* padding-top: 100px; */
     height: calc(85vh - 30px);
     width: 100%;
 }
@@ -391,10 +440,8 @@ body #more-infos-section
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
-    column-gap: 15vw;
     overflow-x: scroll;
     overflow-y: hidden;
-    /* scroll-snap-type: mandatory; */
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch; /* Make scroll-snap work on iOS */
@@ -402,21 +449,19 @@ body #more-infos-section
 
 #projects-section .flex-slider > .mockup-container
 {
-    /* overflow: visible; /* Devrait faire marcher le scroll-snap sur iPhones, supprimer si c'est pas le cas */
     scroll-snap-align: center;
     flex-shrink: 0;
 }
 
 #projects-section .mockup-container
 {
-    /* max-width: 100%; */
     width: 100%;
     perspective: 1500px;
-    /* transform-style: preserve-3d; */
 }
 
 #projects-section .card
 {
+    position: relative;
     transition: transform 1.3s;
     transform-style: preserve-3d;
     display: flex;
@@ -455,7 +500,6 @@ body #more-infos-section
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    row-gap: 5px;
 }
 
 #projects-section .card-bg.desktop
@@ -474,32 +518,23 @@ body #more-infos-section
 
 #projects-section .card-bg h4
 {
-    font-size: calc(1rem + 2.5vw);
-    line-height: calc(2rem + 2.5vw);
+    font-size: calc(1rem + 2vw);
+    line-height: calc(2.5rem + 2vw);
+    font-weight: 700;
+    margin-bottom: 30px;
 }
 
-#projects-section .pagination-container
+#projects-section .card-bg.mobile h4
 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    column-gap: 3%;
+    max-width: 90%;
+    text-align: center;
+    font-size: 1.8rem;
+    line-height: 2.2rem;
 }
 
-#projects-section .pagination-container a.carousel-pagination
+#projects-section .card-bg.mobile h4 + p
 {
-    height: 30px;
-    width: 30px;
     font-size: 1rem;
-    line-height: 1rem;
-    font-weight: 600;
-    color: var(--background-color);
-    text-decoration: none;
-    border: 2px solid var(--background-color);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 /* ---------- White Transition gradient ---------- */
@@ -524,13 +559,37 @@ body #contact-section
 
 body #contact-section .flex-container
 {
+    position: relative;
     width: 80%;
     margin: 0 auto;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
     align-items: center;
-    flex-wrap: wrap;
+}
+
+#contact-section p.important-text
+{
+    position: absolute;
+    top: -20vh;
+    min-width: 300px;
+    left: calc(50% - 150px);
+    text-align: center;
+}
+
+#contact-section p.important-text::after
+{
+    opacity: 0;
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-family: var(--subtitle-font);
+    font-size: 2rem;
+    color: #fff;
+    width: 100%;
+    animation: changingText 10s linear infinite alternate;
+    -webkit-animation: changingText 10s linear infinite alternate;
 }
 
 body #contact-section .holo-btn
@@ -541,7 +600,6 @@ body #contact-section .holo-btn
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    row-gap: 15px;
     text-decoration: none;
     transition: all ease-in 0.4s;
 }
@@ -566,6 +624,7 @@ body #contact-section .holo-btn i
     color: transparent;
     font-size: 6rem;
     line-height: 6rem;
+    margin-bottom: 10px;
 }
 
 
@@ -583,16 +642,22 @@ body #contact-section .holo-btn i
     {
         width: 90%;
     }
+}
 
+/* Tablets */
+@media (max-width: 768px)
+{
     /* Projects Section */
-    #projects-section .computer-display
+    #projects-section .tactile-display
     {
-        display: none;
-    }
-
-    .tactile-display
-    {
+        position: relative;
         display: inline-block;
+        top: 7vh;
+        font-size: 1.3rem;
+        line-height: 1.8rem;
+        color: #fff;
+        text-align: center;
+        z-index: 1;
     }
 }
 
@@ -631,7 +696,7 @@ body #contact-section .holo-btn i
         width: 200px;
     }
 
-    @keyframes move
+    @keyframes blob-left-move
     {
         0%
         {
@@ -645,10 +710,12 @@ body #contact-section .holo-btn i
     }
 
     /* Landing Section */
-    #landing-section h1
+    #landing-section h1 span,
+    #landing-section h2 span
     {
-        font-size: 3rem;
-        line-height: 3.5rem;
+        font-size: 2.5rem;
+        line-height: 3rem;
+        transform: translateY(300%);
     }
 
     /* Presentation Section */
@@ -661,6 +728,11 @@ body #contact-section .holo-btn i
     #presentation-section .card-bg
     {
         height: 245px;
+    }
+
+    #presentation-section .card-bg.left
+    {
+        margin-bottom: 30px;
     }
 
     #presentation-section .card-bg .overlay
@@ -679,33 +751,48 @@ body #contact-section .holo-btn i
     }
 
     /* More Infos Section */
-    #more-infos-section .glass-card
+    #more-infos-section #glass-card
     {
         width: 85%;
         height: unset;
         padding: 15px;
     }
 
-    #more-infos-section .glass-card h3
+    #more-infos-section #glass-card h3,
+    body #more-infos-section p:not(:last-child)
     {
-        margin-bottom: 5px;
+        margin-bottom: 17px;
     }
 
-    #more-infos-section p.important-text
+    /* Projects Section */
+    #projects-section .flex-container
     {
-        margin-top: 10px;
-        font-size: 1.05rem;
-        line-height: 1.5rem;
+        padding-top: 10vh;
+    }
+
+    #projects-section .tactile-display
+    {
+        top: 10vh;
+    }
+
+    #projects-section .card-bg h4
+    {
+        margin-bottom: 15px;
     }
 
     /* Contact Section */
     body #contact-section .flex-container
     {
         z-index: 0;
-        row-gap: 50px;
-        background: rgba(0, 0, 0, 0.5);
-        padding: 30px 0;
-        border-radius: 15px;
+        height: 100%;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 25vh 0 30px;
+    }
+
+    #contact-section p.important-text
+    {
+        top: 20vh;
     }
 
     body #contact-section .holo-btn
@@ -714,24 +801,10 @@ body #contact-section .holo-btn i
         width: 50%;
     }
 
-    #contact-section p.important-text
+    body #contact-section .holo-btn i
     {
-        position: relative;
-        margin-bottom: 30px;
-    }
-
-    #contact-section p.important-text::after
-    {
-        opacity: 0;
-        content: ' ';
-        position: absolute;
-        top: 0;
-        left: 0;
-        font-family: var(--subtitle-font);
-        color: #fff;
-        width: 100%;
-        animation: changingText 10s linear infinite alternate;
-        -webkit-animation: changingText 10s linear infinite alternate;
+        font-size: 4rem;
+        line-height: 4rem;
     }
 }
 
@@ -745,45 +818,6 @@ body #contact-section .holo-btn i
     100%
     {
         opacity: 1;
-    }
-}
-
-@keyframes from-left-appearing-blob
-{
-    0%
-    {
-        left: calc(-10% - 400px); /* 10% - The size of the blob to be sure it starts out of the screen */
-    }
-
-    100%
-    {
-        left: 20px;
-    }
-}
-
-@keyframes from-right-appearing-blob
-{
-    0%
-    {
-        right: calc(-10% - 300px);
-    }
-
-    100%
-    {
-        right: 20px;
-    }
-}
-
-@keyframes from-top-title-appearing
-{
-    0%
-    {
-        transform: translateY(-300%);
-    }
-
-    100%
-    {
-        transform: translateY(0%);
     }
 }
 
@@ -831,50 +865,38 @@ body #contact-section .holo-btn i
     0%
     {
         right: -100%;
-        /* transform: translateX(-100%); */
     }
 
     100%
     {
-        /* transform: translateX(0%); */
         right: 0%;
     }
 }
 
-@keyframes changingText /* 100% / 6 (steps) = 16.66% */
+@keyframes changingText
 {
-    /* 16.66%
-    {
-      opacity: 0;
-    } */
-
-    /* 33.33% */
     0%
     {
       content: 'Contact me';
       opacity: 1;
     }
 
-    /* 49.99% */
     25%
     {
       opacity: 0;
     }
 
-    /* 66.65% */
     50%
     {
       content: 'Contácteme';
       opacity: 1;
     }
 
-    /* 83.30% */
     75%
     {
       opacity: 0;
     }
 
-    /* 99.96% */
     100%
     {
       content: 'Contactez-moi';
