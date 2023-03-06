@@ -144,8 +144,8 @@ a:not(#projects-section a, a.holo-btn):hover::after
 #landing-section h2 span
 {
     display: inline-block;
-    font-size: 6rem;
-    line-height: 7.5rem;
+    font-size: 6vw;
+    line-height: 7.5vw;
     transform: translateY(100%); /* Makes spans invisible at the beginning of the animation */
     animation: spanFadeIn 1000ms ease forwards;
     background: url(./img/holo-2.jpg);
@@ -409,7 +409,9 @@ body #more-infos-section #glass-card.glass-card-animations p
     opacity: 1;
 }
 
-body #more-infos-section #glass-card.glass-card-animations p
+body #more-infos-section #glass-card.glass-card-animations p,
+body #more-infos-section #glass-card.glass-card-animations a,
+body #more-infos-section #glass-card.glass-card-animations a::after
 {
     color: var(--background-color);
 }
@@ -487,6 +489,27 @@ body #more-infos-section #glass-card.glass-card-animations p
 {
     max-height: 569px;
     max-width: 100%;
+}
+
+#projects-section .front-face .btn
+{
+    position: absolute;
+    bottom: -50px;
+    left: calc(50% - 120px);
+    width: 200px;
+    text-align: center;
+    background: url(./img/holo-2.jpg) center no-repeat;
+    color: #fff;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all ease 0.4s;
+}
+
+#projects-section .front-face .btn:hover
+{
+    transform: scale(1.2);
 }
 
 #projects-section .card-bg
@@ -630,9 +653,17 @@ body #contact-section .holo-btn i
 
 
 /* ---------- RESPONSIVE ---------- */
-/* Tablets */
+/* Tablets and larger */
 @media (max-width: 1050px)
 {
+    /* Landing Section */
+    #landing-section h1 span,
+    #landing-section h2 span
+    {
+        font-size: 9vw;
+        line-height: 11.5vw;
+    }
+
     /* Presentation Section */
     #presentation-section .flex-two-cols
     {
@@ -642,6 +673,28 @@ body #contact-section .holo-btn i
     #presentation-section .card-bg
     {
         width: 90%;
+    }
+
+    #presentation-section .card-bg.left
+    {
+        margin-bottom: 30px;
+    }
+
+    /* Contact Section */
+    body #contact-section .flex-container
+    {
+        height: 35%;
+    }
+
+    #contact-section p.important-text
+    {
+        top: -10vh;
+    }
+
+    body #contact-section .holo-btn
+    {
+        height: 50%;
+        width: 33%;
     }
 }
 
@@ -666,13 +719,7 @@ body #contact-section .holo-btn i
 @media (max-width: 600px)
 {
     /* Global */
-    body p
-    {
-        font-size: 0.9rem;
-        line-height: 1.4rem;
-    }
-
-    h2
+    h2:not(h2#sticky-title)
     {
         font-size: 2.5rem;
         line-height: 4rem;
@@ -682,6 +729,22 @@ body #contact-section .holo-btn i
     {
         font-size: 2rem;
         line-height: 3rem;
+    }
+
+    a:not(#projects-section a, a.holo-btn)::after
+    {
+        right: -18px;
+    }
+
+    a:not(#projects-section a, a.holo-btn):hover::after
+    {
+        right: -25px;
+    }
+
+    body p
+    {
+        font-size: 0.9rem;
+        line-height: 1.4rem;
     }
 
     /* Blob Section */
@@ -714,9 +777,15 @@ body #contact-section .holo-btn i
     #landing-section h1 span,
     #landing-section h2 span
     {
-        font-size: 2.5rem;
-        line-height: 3rem;
+        font-size: 9vw;
+        line-height: 12vw;
         transform: translateY(300%);
+    }
+
+    h2#sticky-title
+    {
+        font-size: 8vw;
+        line-height: 15vw;
     }
 
     /* Presentation Section */
@@ -729,11 +798,6 @@ body #contact-section .holo-btn i
     #presentation-section .card-bg
     {
         height: 245px;
-    }
-
-    #presentation-section .card-bg.left
-    {
-        margin-bottom: 30px;
     }
 
     #presentation-section .card-bg .overlay
@@ -768,7 +832,7 @@ body #contact-section .holo-btn i
     /* Projects Section */
     #projects-section .flex-container
     {
-        padding-top: 10vh;
+        padding-top: 5vh;
     }
 
     #projects-section .tactile-display
@@ -776,9 +840,24 @@ body #contact-section .holo-btn i
         top: 10vh;
     }
 
+    #projects-section .mobile .front-face img
+    {
+        max-width: 230px;
+    }
+
+    #projects-section .mobile .front-face .btn
+    {
+        bottom: -30px;
+    }
+
     #projects-section .card-bg h4
     {
         margin-bottom: 15px;
+    }
+
+    #projects-section .card-bg.mobile h4
+    {
+        max-width: 85%;
     }
 
     /* Contact Section */
