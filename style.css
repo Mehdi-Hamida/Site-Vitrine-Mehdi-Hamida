@@ -30,12 +30,17 @@ body
 section
 {
     height: 100vh;
-    scroll-snap-align: center;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     overflow: hidden;
+}
+
+section:not(#blob-section) /* I don't want the #blob-section to be concerned by scroll-snap because it's the background */
+{
+    scroll-snap-align: center;
 }
 
 h1,
@@ -51,7 +56,7 @@ h2
 {
     font-size: 3.625rem;
     line-height: 4.8rem;
-    background: url(./img/holo-2.jpg);
+    background: url(./img/holo-2.jpg); /* This line and the ones below applies background-image to the text */
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -84,7 +89,7 @@ h4
 
 p
 {
-    font-size: 1.5rem;
+    font-size: 1.5vw;
     line-height: 2rem;
     color: var(--text-color);
     margin: 0;
@@ -98,38 +103,81 @@ a
 
 a:not(#projects-section a, a.holo-btn)::after
 {
-    position: absolute;
+    position: relative;
+    display: inline-block;
     content: "→";
     font-weight: 700;
-    top: calc(50% - 10px); /* 50% - The middle of the arrow's height */
-    right: -26px;
+    right: -3px;
     height: 20px;
     color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     transition: all ease 0.4s;
 }
 
 a:not(#projects-section a, a.holo-btn):hover::after
 {
-    right: -32px;
+    right: -12px;
 }
 
 /* ---------- Blob Section ---------- */
 #blob-section
 {
-    height: 100vh;
-    width: 100vw;
     position: fixed;
     z-index: 0;
     pointer-events: none; /* Make this section less disturbing for the carousel's scrollbar */
 }
 
+#top-left-blob,
+#bottom-right-blob
+{
+    position: absolute;
+    filter: blur(3px);
+}
+
+#top-left-blob
+{
+    height: 400px;
+    width: 400px;
+    top: 10px;
+    left: 20px;
+    animation: left-blob-move 100s infinite linear;
+}
+
+@keyframes left-blob-move
+{
+    0%
+    {
+        transform: translateX(-100px) translateY(-20vh) rotate(0deg);
+    }
+    100%
+    {
+        transform: translateX(100vw) translateY(30vh) rotate(360deg);
+    }
+}
+
+#bottom-right-blob
+{
+    height: 300px;
+    width: 300px;
+    bottom: 8vh;
+    right: 20px;
+    animation: right-blob-move 100s infinite linear;
+}
+
+@keyframes right-blob-move
+{
+    0%
+    {
+        transform: translateX(10vw) translateY(-13vh) rotate(0deg);
+    }
+    100%
+    {
+        transform: translateX(-100vw) translateY(7vh) rotate(360deg);
+    }
+}
+
 /* ---------- Landing section ---------- */
 #landing-section
 {
-    height: 100vh;
     position: relative;
 }
 
@@ -171,56 +219,6 @@ a:not(#projects-section a, a.holo-btn):hover::after
     }
 }
 
-#top-left-blob,
-#bottom-right-blob
-{
-    position: absolute;
-    filter: blur(3px);
-}
-
-#top-left-blob
-{
-    height: 400px;
-    width: 400px;
-    top: 10px;
-    left: 20px;
-    animation: left-blob-move 100s infinite linear;
-}
-
-@keyframes left-blob-move
-{
-    0%
-    {
-        transform: translateX(-100px) translateY(-20vh) rotate(0deg);
-    }
-    100%
-    {
-        transform: translateX(100vw) translateY(30vh) rotate(360deg);
-    }
-}
-
-/* #landing-section #bottom-right-blob */
-#bottom-right-blob
-{
-    height: 300px;
-    width: 300px;
-    bottom: 8vh;
-    right: 20px;
-    animation: right-blob-move 100s infinite linear;
-}
-
-@keyframes right-blob-move
-{
-    0%
-    {
-        transform: translateX(10vw) translateY(-13vh) rotate(0deg);
-    }
-    100%
-    {
-        transform: translateX(-100vw) translateY(7vh) rotate(360deg);
-    }
-}
-
 /* Sticky title */
 #sticky-title-bg
 {
@@ -230,14 +228,13 @@ a:not(#projects-section a, a.holo-btn):hover::after
     top: 0;
     padding-top: 10px;
     margin-top: -8vh; /* To make it visible from #landing-section and letting 100vh height for the section, also keeping it's 12vh height for gradient  */
-    height: 12vh;
-    z-index: 5;
+    height: 10vh;
+    z-index: 2;
 }
 
 h2#sticky-title
 {
     animation: sticky-title-from-bottom-appearing 1500ms ease-in;
-    z-index: 2;
 }
 
 @keyframes sticky-title-from-bottom-appearing
@@ -259,11 +256,6 @@ h2#sticky-title
 #presentation-section
 {
     position: relative;
-    top: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 #presentation-section .flex-two-cols
@@ -346,17 +338,14 @@ h2#sticky-title
     rgba(255,255,255,0) 100%);
     height: 100vh;
     width: 100%;
-    z-index: -1;
 }
 
 /* ---------- More infos section ---------- */
 body #more-infos-section
 {
-    position: static;
     background: url(./img/holo-3.png) no-repeat #fff;
     background-size: cover;
     background-position: center;
-    z-index: 4;
 }
 
 #more-infos-section #glass-card
@@ -376,23 +365,23 @@ body #more-infos-section
     justify-content: center;
     align-items: center;
     text-align: center;
-    z-index: 4;
-    transition: all ease 1s;
+    z-index: 1;
+    transition: all ease 0.8s;
 }
 
-body #more-infos-section h3,
-body #more-infos-section p
+#more-infos-section h3,
+#more-infos-section p
 {
     opacity: 0;
 }
 
-body #more-infos-section h3,
-body #more-infos-section p:not(:last-child)
+#more-infos-section h3,
+#more-infos-section p:not(:last-child)
 {
     margin-bottom: 30px;
 }
 
-body #more-infos-section #glass-card.glass-card-animations
+#more-infos-section #glass-card.glass-card-animations
 {
     opacity: 1;
     width: 80%;
@@ -401,17 +390,17 @@ body #more-infos-section #glass-card.glass-card-animations
     box-shadow: 0 0 30px 5px rgb(0 0 0 / 10%);
 }
 
-body #more-infos-section #glass-card.glass-card-animations h3,
-body #more-infos-section #glass-card.glass-card-animations p
+#more-infos-section #glass-card.glass-card-animations h3,
+#more-infos-section #glass-card.glass-card-animations p
 {
-    transition: all ease 1s;
-    transition-delay: 1s;
+    transition: all ease 0.8s;
+    transition-delay: 0.8s;
     opacity: 1;
 }
 
-body #more-infos-section #glass-card.glass-card-animations p,
-body #more-infos-section #glass-card.glass-card-animations a,
-body #more-infos-section #glass-card.glass-card-animations a::after
+#more-infos-section #glass-card.glass-card-animations p,
+#more-infos-section #glass-card.glass-card-animations a,
+#more-infos-section #glass-card.glass-card-animations a::after
 {
     color: var(--background-color);
 }
@@ -419,7 +408,6 @@ body #more-infos-section #glass-card.glass-card-animations a::after
 /* ---------- Projects Section ---------- */
 #projects-section
 {
-    position: static;
     background: url(./img/holo-3-reverse.png) no-repeat #fff;
     background-size: cover;
     background-position: center;
@@ -453,7 +441,7 @@ body #more-infos-section #glass-card.glass-card-animations a::after
 {
     overflow: visible; /* Important to make the effect work on iOS */
     scroll-snap-align: center;
-    flex-shrink: 0;
+    flex-shrink: 0; /* To prevent items resizing due to parent flex */
 }
 
 #projects-section .mockup-container
@@ -465,8 +453,9 @@ body #more-infos-section #glass-card.glass-card-animations a::after
 #projects-section .card
 {
     position: relative;
-    transition: transform 1.3s;
+    transition: transform ease-out 0.8s;
     transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -482,6 +471,7 @@ body #more-infos-section #glass-card.glass-card-animations a::after
     position: relative;
     width: fit-content;
     backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
     transform: rotateY(180deg);
 }
 
@@ -520,6 +510,7 @@ body #more-infos-section #glass-card.glass-card-animations a::after
     height: 100%;
     width: 100%;
     backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -556,12 +547,7 @@ body #more-infos-section #glass-card.glass-card-animations a::after
     line-height: 2.2rem;
 }
 
-#projects-section .card-bg.mobile h4 + p
-{
-    font-size: 1rem;
-}
-
-/* ---------- White Transition gradient ---------- */
+/* ---------- Black Transition gradient ---------- */
 #black-transition-gradient
 {
     position: relative;
@@ -571,16 +557,9 @@ body #more-infos-section #glass-card.glass-card-animations a::after
     rgba(255,255,255,0) 100%);
     height: 100vh;
     width: 100%;
-    z-index: -1;
 }
 
 /* ---------- Contact section ---------- */
-body #contact-section
-{
-    position: static;
-    background: var(--background-color);
-}
-
 body #contact-section .flex-container
 {
     position: relative;
@@ -612,8 +591,38 @@ body #contact-section .flex-container
     font-size: 2rem;
     color: #fff;
     width: 100%;
-    animation: changingText 10s linear infinite alternate;
-    -webkit-animation: changingText 10s linear infinite alternate;
+    animation: changingText 5s linear infinite alternate;
+}
+
+@keyframes changingText
+{
+    0%
+    {
+        content: 'Contact me';
+        opacity: 1;
+    }
+
+    25%
+    {
+        opacity: 0;
+    }
+
+    50%
+    {
+        content: 'Contácteme';
+        opacity: 1;
+    }
+
+    75%
+    {
+        opacity: 0;
+    }
+
+    100%
+    {
+        content: 'Contactez-moi';
+        opacity: 1;
+    }
 }
 
 body #contact-section .holo-btn
@@ -625,7 +634,7 @@ body #contact-section .holo-btn
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    transition: all ease-in 0.4s;
+    transition: all ease-in 0.2s;
 }
 
 body #contact-section .flex-container:hover > .holo-btn /* Hovering the parent lowers the items opacity */
@@ -656,6 +665,11 @@ body #contact-section .holo-btn i
 /* Tablets and larger */
 @media (max-width: 1050px)
 {
+    p
+    {
+        font-size: 2vw;
+    }
+
     /* Landing Section */
     #landing-section h1 span,
     #landing-section h2 span
@@ -701,6 +715,11 @@ body #contact-section .holo-btn i
 /* Tablets */
 @media (max-width: 768px)
 {
+    p
+    {
+        font-size: 2.5vw;
+    }
+
     /* Projects Section */
     #projects-section .tactile-display
     {
@@ -727,18 +746,8 @@ body #contact-section .holo-btn i
 
     h3
     {
-        font-size: 2rem;
-        line-height: 3rem;
-    }
-
-    a:not(#projects-section a, a.holo-btn)::after
-    {
-        right: -18px;
-    }
-
-    a:not(#projects-section a, a.holo-btn):hover::after
-    {
-        right: -25px;
+        font-size: 6vw;
+        line-height: 7vw;
     }
 
     body p
@@ -760,19 +769,6 @@ body #contact-section .holo-btn i
         width: 200px;
     }
 
-    @keyframes blob-left-move
-    {
-        0%
-        {
-            transform: translateX(0px) translateY(-20vh) rotate(0deg);
-        }
-
-        100%
-        {
-            transform: translateX(100vw) translateY(30vh) rotate(360deg);
-        }
-    }
-
     /* Landing Section */
     #landing-section h1 span,
     #landing-section h2 span
@@ -789,12 +785,6 @@ body #contact-section .holo-btn i
     }
 
     /* Presentation Section */
-    #presentation-section .flex-two-cols,
-    p.important-text
-    {
-        margin: 0;
-    }
-
     #presentation-section .card-bg
     {
         height: 245px;
@@ -833,6 +823,7 @@ body #contact-section .holo-btn i
     #projects-section .flex-container
     {
         padding-top: 5vh;
+        height: 100vh;
     }
 
     #projects-section .tactile-display
@@ -842,12 +833,17 @@ body #contact-section .holo-btn i
 
     #projects-section .mobile .front-face img
     {
-        max-width: 230px;
+        max-width: 200px;
+    }
+
+    #projects-section .front-face .btn
+    {
+        bottom: -8vh;
     }
 
     #projects-section .mobile .front-face .btn
     {
-        bottom: -30px;
+        bottom: -7vh;
     }
 
     #projects-section .card-bg h4
@@ -863,11 +859,11 @@ body #contact-section .holo-btn i
     /* Contact Section */
     body #contact-section .flex-container
     {
-        z-index: 0;
         height: 100%;
         width: 100%;
-        background: rgba(0, 0, 0, 0.7);
+        background: rgba(0, 0, 0, 0.8);
         padding: 25vh 0 30px;
+        justify-content: center;
     }
 
     #contact-section p.important-text
@@ -878,83 +874,12 @@ body #contact-section .holo-btn i
     body #contact-section .holo-btn
     {
         height: auto;
-        width: 50%;
+        width: 45%;
     }
 
     body #contact-section .holo-btn i
     {
         font-size: 4rem;
         line-height: 4rem;
-    }
-}
-
-/* ---------- Keyframes ---------- */
-@keyframes from-bottom-appearing
-{
-    0%
-    {
-        transform: translateY(100%);
-    }
-
-    100%
-    {
-        transform: translateY(0%);
-    }
-}
-
-@keyframes from-left-appearing
-{
-    0%
-    {
-        left: -100%;
-    }
-
-    100%
-    {
-        left: 0;
-    }
-}
-
-@keyframes from-right-appearing
-{
-    0%
-    {
-        right: -100%;
-    }
-
-    100%
-    {
-        right: 0%;
-    }
-}
-
-@keyframes changingText
-{
-    0%
-    {
-      content: 'Contact me';
-      opacity: 1;
-    }
-
-    25%
-    {
-      opacity: 0;
-    }
-
-    50%
-    {
-      content: 'Contácteme';
-      opacity: 1;
-    }
-
-    75%
-    {
-      opacity: 0;
-    }
-
-    100%
-    {
-      content: 'Contactez-moi';
-      opacity: 1;
     }
 }
