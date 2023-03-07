@@ -14,12 +14,6 @@
     --font: sans-serif;
 }
 
-html
-{
-    scroll-snap-type: y mandatory;
-    scroll-behavior: smooth;
-}
-
 body
 {
     margin: 0;
@@ -36,11 +30,6 @@ section
     align-items: center;
     flex-direction: column;
     overflow: hidden;
-}
-
-section:not(#blob-section) /* I don't want the #blob-section to be concerned by scroll-snap because it's the background */
-{
-    scroll-snap-align: center;
 }
 
 h1,
@@ -222,14 +211,18 @@ a:not(#projects-section a, a.holo-btn):hover::after
 /* Sticky title */
 #sticky-title-bg
 {
-    background: linear-gradient(270deg, rgba(20,20,20,1) 0%, rgba(255,255,255,0) 100%);
-    background: -webkit-linear-gradient(270deg, rgba(20,20,20,1) 0%, rgba(255,255,255,0) 100%);
     position: sticky;
     top: 0;
     padding-top: 10px;
     margin-top: -8vh; /* To make it visible from #landing-section and letting 100vh height for the section, also keeping it's 12vh height for gradient  */
     height: 10vh;
     z-index: 2;
+}
+
+#sticky-title-bg.gradient-bg
+{
+    background: linear-gradient(270deg, rgba(20,20,20,1) 0%, rgba(255,255,255,0) 100%);
+    background: -webkit-linear-gradient(270deg, rgba(20,20,20,1) 0%, rgba(255,255,255,0) 100%);
 }
 
 h2#sticky-title
@@ -336,8 +329,9 @@ h2#sticky-title
     rgba(255,255,255,0) 100%);
     background: -webkit-linear-gradient(90deg,rgba(255,255,255,1) 0%,
     rgba(255,255,255,0) 100%);
-    height: 100vh;
+    height: 20vh;
     width: 100%;
+    z-index: -1;
 }
 
 /* ---------- More infos section ---------- */
@@ -555,7 +549,7 @@ body #more-infos-section
     rgba(255,255,255,0) 100%);
     background: -webkit-linear-gradient(270deg,rgba(255,255,255,1) 0%,
     rgba(255,255,255,0) 100%);
-    height: 100vh;
+    height: 20vh;
     width: 100%;
 }
 
