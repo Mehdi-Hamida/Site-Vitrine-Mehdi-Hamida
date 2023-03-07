@@ -582,8 +582,7 @@ body #contact-section .flex-container
 
 #contact-section p.important-text::after
 {
-    opacity: 0;
-    content: " ";
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -822,7 +821,6 @@ body #contact-section .holo-btn i
     /* Projects Section */
     #projects-section .flex-container
     {
-        padding-top: 5vh;
         height: 100vh;
     }
 
@@ -843,7 +841,7 @@ body #contact-section .holo-btn i
 
     #projects-section .mobile .front-face .btn
     {
-        bottom: -7vh;
+        bottom: -5vh;
     }
 
     #projects-section .card-bg h4
