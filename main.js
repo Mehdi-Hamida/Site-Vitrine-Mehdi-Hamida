@@ -1,6 +1,5 @@
 const {scrollTop, clientHeight} = document.documentElement; // I am creating a constant from 2 of the properties of the document.documentElement object. It's called destructuring. scrollTop corresponds to the number of pixels scrolled from the top of the document. clientHeight corresponds to the height of the visible part of the client => The Viewport.
 
-
 // Function to make the background of #sticky-title transparent until #presentation-section. (To avoid the gradient passing over the blobs)
 const presentationSection = document.getElementById("presentation-section");
 const stickyTitleBg = document.getElementById("sticky-title-bg");
@@ -31,14 +30,14 @@ window.addEventListener("scroll", () => {
 
   if (scrollTop > (scrollTop + topElementToTopViewport).toFixed() - clientHeight)
   {
-    leftCard.style.animation = "from-left-appearing 2000ms ease";
-    rightCard.style.animation = "from-right-appearing 2000ms ease";
+    leftCard.classList.add("left-card-animation");
+    rightCard.classList.add("right-card-animation");
   }
   
   else
   {
-    leftCard.style.animation = "";
-    rightCard.style.animation = "";
+    leftCard.classList.remove("left-card-animation");
+    rightCard.classList.remove("right-card-animation");
   }
 });
 
