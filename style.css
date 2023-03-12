@@ -108,13 +108,18 @@ a:not(#projects-section a, a.holo-btn):hover::after
     right: -12px;
 }
 
-/* Titles color adaptation */
+/* Colors mixing behaviour */
 h1,
 h2,
 #projects-section .tactile-display,
 #contact-section .important-text
 {
     mix-blend-mode: difference; /* Changes text color when a blob is passing behind */
+}
+
+body #contact-section .holo-btn
+{
+    mix-blend-mode: screen;
 }
 
 /* Scrollbars styles */
@@ -604,6 +609,16 @@ body #contact-section .flex-container
     align-items: center;
 }
 
+body #contact-section .flex-container::after
+{
+    position: absolute;
+    content: "W3C validado ✔";
+    bottom: 0;
+    right: 3px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.3);
+}
+
 #contact-section h2.important-text
 {
     background: none; /* Hides h2 default bg to hide the html text and make only ::after visible */
@@ -860,7 +875,7 @@ body #contact-section .holo-btn i
 
     #projects-section .tactile-display
     {
-        top: 10vh;
+        top: 15vh;
     }
 
     #projects-section .mobile .front-face img
@@ -893,7 +908,6 @@ body #contact-section .holo-btn i
     {
         height: 100%;
         width: 100%;
-        background: rgba(0, 0, 0, 0.8);
         padding: 25vh 0 30px;
         justify-content: center;
     }

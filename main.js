@@ -8,7 +8,7 @@ window.addEventListener("scroll", () => {
   
   const topElementToTopViewport = presentationSection.getBoundingClientRect().top; // getBoundingClientRect is an object that contains several pieces of information and we only keep the 'top' information which corresponds to the distance between the visible part of the window and the top of our element.
 
-  if (scrollTop > (scrollTop + topElementToTopViewport).toFixed()) // Launches from #presentation-section
+  if (scrollTop > (scrollTop + topElementToTopViewport).toFixed()) // Starts when #presentation-section is entirely visible
   {
     stickyTitleBg.classList.add("gradient-bg");
   }
@@ -28,7 +28,7 @@ window.addEventListener("scroll", () => {
   
   const topElementToTopViewport = presentationSection.getBoundingClientRect().top;
 
-  if (scrollTop > (scrollTop + topElementToTopViewport).toFixed() - clientHeight)
+  if (scrollTop > (scrollTop + topElementToTopViewport).toFixed() - clientHeight) // Starts when #presentation-section starts to be visible
   {
     leftCard.classList.add("left-card-animation");
     rightCard.classList.add("right-card-animation");
