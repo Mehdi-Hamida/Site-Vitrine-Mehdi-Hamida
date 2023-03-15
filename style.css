@@ -46,7 +46,7 @@ h2
 {
     font-size: 3.625rem;
     line-height: 4.8rem;
-    background: url(./img/holo-2.jpg); /* This line and the ones below applies background-image to the text */
+    background: url(./img/holo-2.webp); /* This line and the ones below applies background-image to the text */
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -57,7 +57,7 @@ h3
     font-family: var(--subtitle-font);
     font-size: 2.5rem;
     line-height: 3.5rem;
-    background: url(./img/holo-2.jpg);
+    background: url(./img/holo-2.webp);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -70,7 +70,7 @@ h4
     font-size: 1.45rem;
     line-height: 1.85rem;
     font-weight: 500;
-    background: url(./img/holo-2.jpg) bottom;
+    background: url(./img/holo-2.webp) bottom;
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -142,14 +142,14 @@ body::-webkit-scrollbar-track
   
 #projects-section .flex-slider::-webkit-scrollbar-thumb /* Background of the scroll thumb */
 {
-    background: url(./img/holo-2.jpg) no-repeat center fixed;
+    background: url(./img/holo-2.webp) no-repeat center fixed;
     background-size: cover;
     border-radius: 20px;
 }
 
 body::-webkit-scrollbar-thumb
 {
-    background: url(./img/holo-2.jpg) no-repeat 25% 50% fixed;
+    background: url(./img/holo-2.webp) no-repeat 25% 50% fixed;
     background-size: cover;
     border-radius: 20px;
 }
@@ -241,7 +241,7 @@ body::-webkit-scrollbar-thumb
     line-height: 7.5vw;
     transform: translateY(100%); /* Makes spans invisible at the beginning of the animation */
     animation: spanFadeIn 1000ms ease forwards;
-    background: url(./img/holo-2.jpg);
+    background: url(./img/holo-2.webp);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -319,7 +319,7 @@ h2#sticky-title
 #presentation-section .card-bg
 {
     position: relative;
-    background: url(./img/holo-1.jpg) no-repeat;
+    background: url(./img/holo-1.webp) no-repeat;
     background-size: 100%;
     height: 300px;
     width: 45%;
@@ -389,7 +389,7 @@ h2#sticky-title
     width: 30%;
     left: calc(50% - 15%);
     bottom: -10px;
-    background: url(./img/holo-2.jpg) repeat;
+    background: url(./img/holo-2.webp) repeat;
 }
 
 #presentation-section p.important-text
@@ -538,7 +538,7 @@ h2#sticky-title
     left: calc(50% - 120px);
     width: 200px;
     text-align: center;
-    background: url(./img/holo-2.jpg) center no-repeat;
+    background: url(./img/holo-2.webp) center no-repeat;
     color: #fff;
     font-weight: 700;
     padding: 10px 20px;
@@ -569,7 +569,7 @@ h2#sticky-title
 
 #projects-section .card-bg.desktop
 {
-    background: url(./img/mockups/desktop-mockup-bg.png) no-repeat center;
+    background: url(./img/mockups/desktop-mockup-bg.webp) no-repeat center;
     background-size: contain;
 }
 
@@ -577,7 +577,7 @@ h2#sticky-title
 {
     width: 268px; /* Prevent text overflowing from mobile shape */
     left: calc(50% - 134px);
-    background: url(./img/mockups/mobile-mockup-bg.png) no-repeat center;
+    background: url(./img/mockups/mobile-mockup-bg.webp) no-repeat center;
     background-size: contain;
 }
 
@@ -597,7 +597,17 @@ h2#sticky-title
     line-height: 2.2rem;
 }
 
+#projects-section .card-bg p
+{
+    font-size: 1vw;
+}
+
 /* ---------- Contact section ---------- */
+body #contact-section
+{
+    position: relative;
+}
+
 body #contact-section .flex-container
 {
     position: relative;
@@ -609,14 +619,13 @@ body #contact-section .flex-container
     align-items: center;
 }
 
-body #contact-section .flex-container::after
+body #contact-section .w3c-validated
 {
     position: absolute;
-    content: "W3C validado ✔";
-    bottom: 0;
-    right: 3px;
+    bottom: 5px;
+    right: 10px;
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.6);
 }
 
 #contact-section h2.important-text
@@ -698,7 +707,7 @@ body #contact-section .flex-container:hover > .holo-btn:hover /* Doesn't changes
 
 body #contact-section .holo-btn i
 {
-    background: url(./img/holo-4.jpg) no-repeat center;
+    background: url(./img/holo-4.webp) no-repeat center;
     background-size: 200%;
     background-clip: text;
     -webkit-background-clip: text;
@@ -740,6 +749,12 @@ body #contact-section .holo-btn i
     #presentation-section .card-bg.left
     {
         margin-bottom: 30px;
+    }
+
+    /* Projects Section */
+    #projects-section .card-bg p
+    {
+        font-size: 2vw;
     }
 
     /* Contact Section */
@@ -901,6 +916,11 @@ body #contact-section .holo-btn i
     #projects-section .card-bg.mobile h4
     {
         max-width: 85%;
+    }
+
+    #projects-section .card-bg p
+    {
+        font-size: 3vw;
     }
 
     /* Contact Section */
